@@ -1,5 +1,10 @@
+import { Route, Routes } from "react-router-dom";
+import { PrincipalRouter } from "../features/content/routes";
+
 export const AppRouter = () => {
   return (
-    <h1>Hola</h1>
+    <Routes>
+      <Route path="*" element={<PrincipalRouter />} />
+    </Routes>
   );
 };
