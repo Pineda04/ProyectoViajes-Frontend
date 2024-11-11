@@ -14,9 +14,9 @@ export const Header = () => {
           <Link to="/destinations" className="hover:text-yellow-400 transition">
             Destinos
           </Link>
-          <a href="#" className="hover:text-yellow-400 transition">
+          <Link to="/travel-packages" className="hover:text-yellow-400 transition">
             Paquetes de viaje
-          </a>
+          </Link>
           <a href="#" className="hover:text-yellow-400 transition">
             Contacto
           </a>
