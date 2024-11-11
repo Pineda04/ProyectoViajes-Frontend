@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Header = () => {
   return (
     <header className="bg-gradient-to-r from-gray-800 to-gray-900 py-6 shadow-lg">
@@ -6,12 +8,12 @@ export const Header = () => {
           TravelExperience
         </h1>
         <nav className="hidden md:flex md:space-x-6 text-lg flex-grow">
-          <a href="#" className="hover:text-yellow-400 transition">
+          <Link to="/home" className="hover:text-yellow-400 transition">
             Inicio
-          </a>
-          <a href="#" className="hover:text-yellow-400 transition">
+          </Link>
+          <Link to="/destinations" className="hover:text-yellow-400 transition">
             Destinos
-          </a>
+          </Link>
           <a href="#" className="hover:text-yellow-400 transition">
             Paquetes de viaje
           </a>

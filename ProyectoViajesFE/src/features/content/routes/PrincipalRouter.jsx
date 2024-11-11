@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { HomePage } from "../pages";
+import { DestinationPage, HomePage } from "../pages";
 import { DestinationsPage } from "../pages/DestinationsPage";
 export const PrincipalRouter = () => {
   return (
@@ -7,6 +7,7 @@ export const PrincipalRouter = () => {
       <Routes>
         <Route path='/home' element={<HomePage/>}/>
         <Route path='/destinations' element={<DestinationsPage/>}/>
+        <Route path='/destinations/destination/:id' element={<DestinationPage/>}/>
         <Route path='/*' element={<Navigate to={"/home"}/>}/>
       </Routes>
     </div>

@@ -16,7 +16,7 @@ export const DestinationListItem = ({ destination }) => {
           {destination.description}
         </p>
         <Link
-          to={`/destinations/${destination.id}`}
+          to={`/destinations/destination/${destination.id}`}
           className="text-yellow-400 font-bold mt-3 md:mt-4 block hover:text-yellow-300 transition"
         >
           Ver más

@@ -9,3 +9,7 @@ export * from './PrincipalReservationArea';
 export * from './DestinationListSkeleton';
 export * from './DestinationListItem';
 export * from './DestinationsPostList';
+
+// Componentes de un destino
+export * from './DestinationDetails';
+export * from './DestinationDetailsSkeleton';
