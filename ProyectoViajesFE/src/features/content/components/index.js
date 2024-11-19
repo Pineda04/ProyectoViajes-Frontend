@@ -18,3 +18,7 @@ export * from './DestinationDetailsSkeleton';
 export * from './TravelPackageListItem';
 export * from './TravelPackagesPostList';
 export * from './TravelPackageListSkeleton'
+
+// Componentes de paquete de viaje
+export * from './TravelPackageDetails'
+export * from './TravelPackageDetailsSkeleton.jsx'

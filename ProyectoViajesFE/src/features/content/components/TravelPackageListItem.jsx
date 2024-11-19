@@ -25,7 +25,7 @@ export const TravelPackageListItem = ({ travelPackage }) => {
         <p className="mt-2 text-lg font-bold text-yellow-400">{price ? `$${price.toFixed(2)}` : 'Consultar precio'}</p>
 
         <Link
-          to={`/travel-packages/package/${id}`}
+          to={`/travel-packages/travel-package/${id}`}
           className="text-yellow-400 font-bold mt-3 md:mt-4 block hover:text-yellow-300 transition"
         >
           Ver más

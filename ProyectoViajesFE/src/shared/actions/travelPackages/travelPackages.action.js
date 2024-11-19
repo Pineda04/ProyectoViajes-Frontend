@@ -11,3 +11,14 @@ export const getTravelPackagesList = async (searchTerm = "", page = 1, averageSt
     return error.response;
   }
 };
+
+// Obtener paquete de viaje por ID
+export const getTravelPackageById = async (id) => {
+  try {
+    const { data } = await viajesApi.get(`/travel_packages/${id}`);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error.response;
+  }
+};
