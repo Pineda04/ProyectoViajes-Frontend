@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getTravelPackageById } from "../../../shared/actions/travelPackages/travelPackages.action";
 import { TravelPackageDetailsSkeleton } from "./TravelPackageDetailsSkeleton";
@@ -76,11 +76,10 @@ export const TravelPackageDetails = () => {
               <h1 className="text-4xl font-extrabold text-yellow-400">
                 {travelPackage.data?.name}
               </h1>
-              <button
-                className="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-400 transition duration-200"
-                onClick={() => alert("Reserva realizada!")}
-              >
-                Reservar
+              <button className="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-400 transition duration-200">
+                <Link to={`/reservations/travel-package/${travelPackage.data?.id}`}>
+                  Reservar
+                </Link>
               </button>
             </div>
 
@@ -142,7 +141,8 @@ export const TravelPackageDetails = () => {
                   {/* Promedio de estrellas */}
                   <div className="flex items-center mt-2">
                     <p className="text-gray-300 mr-4">
-                      <strong>Promedio de estrellas:</strong> {averageStars.toFixed(1)} / 5
+                      <strong>Promedio de estrellas:</strong>{" "}
+                      {averageStars.toFixed(1)} / 5
                     </p>
                     <div className="flex">{renderStars(averageStars)}</div>
                   </div>

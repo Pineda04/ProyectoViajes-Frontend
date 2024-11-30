@@ -13,6 +13,7 @@ export * from './DestinationsPostList';
 // Componentes de un destino
 export * from './DestinationDetails';
 export * from './DestinationDetailsSkeleton';
+export * from './DestinationTravelPackages'
 
 // Componentes de paquetes de viaje
 export * from './TravelPackageListItem';
@@ -22,3 +23,7 @@ export * from './TravelPackageListSkeleton'
 // Componentes de paquete de viaje
 export * from './TravelPackageDetails'
 export * from './TravelPackageDetailsSkeleton.jsx'
+
+// Componentes de la reservación
+export * from './ReservationDetails'
+export * from './ReservationDetailsSkeleton'
