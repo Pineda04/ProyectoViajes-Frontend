@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Loading } from "../../../shared/components/Loading";
 export const LoginPage = () => {
+  
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const login = useAuthStore((state) => state.login);
   const error = useAuthStore((state) => state.error);
+  const validateAuthentication = useAuthStore((state) => state.validateAuthentication);
   const message = useAuthStore((state) => state.message);
 
   useEffect(() => {
@@ -27,6 +30,7 @@ export const LoginPage = () => {
       // console.log(formValues);
       setLoading(true);
       await login(formValues);
+      validateAuthentication();
       setLoading(false);
     },
   });

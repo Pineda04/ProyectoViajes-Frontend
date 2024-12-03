@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../security/store";
+import { ProtectedComponent } from "../../../shared/components/ProtectedComponent";
+import { rolesListConstant } from "../../../shared/constants/roles-list.constant";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -54,6 +56,15 @@ export const Header = () => {
           <Link to="/contact" className="my-1 text-white hover:text-yellow-400 md:my-0">
             Contacto
           </Link>
+
+          <ProtectedComponent requiredRoles={[rolesListConstant.ADMIN]}>
+            <Link
+              to="/administration/dashboard"
+              className="my-1 text-white hover:text-unah-yellow md:mx-4 md:my-0"
+            >
+              Administración
+            </Link>
+          </ProtectedComponent>
           
           {isAuthenticated ? (
             <button 

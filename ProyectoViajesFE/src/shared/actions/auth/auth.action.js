@@ -1,9 +1,9 @@
-// import { viajesApi } from "../../../config/api/viajesApi";
-import axios from "axios";
+import { viajesApi } from "../../../config/api/viajesApi";
+// import axios from "axios";
 
 export const loginAsync = async (form) => {
     try {
-        const { data } = await axios.post('/auth/login', form);
+        const { data } = await viajesApi.post('/auth/login', form);
         
         return data;
     } catch (error) {
