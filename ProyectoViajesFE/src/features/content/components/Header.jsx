@@ -69,7 +69,7 @@ export const Header = () => {
           {isAuthenticated ? (
             <button 
               onClick={handleLogout}
-              className="my-1 text-white text-left hover:text-yellow-400 md:my-0"
+              className="bg-gray-800 text-yellow-500 font-semibold py-2 px-4 rounded-lg border border-yellow-500 hover:bg-gray-700 transition"
             >
               Salir
             </button>
