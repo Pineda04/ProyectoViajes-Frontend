@@ -76,11 +76,12 @@ export const TravelPackageDetails = () => {
               <h1 className="text-4xl font-extrabold text-yellow-400">
                 {travelPackage.data?.name}
               </h1>
-              <button className="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-400 transition duration-200">
-                <Link to={`/reservations/travel-package/${travelPackage.data?.id}`}>
-                  Reservar
-                </Link>
-              </button>
+              <Link
+                className="bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg hover:bg-yellow-400 transition duration-200"
+                to={`/reservations/travel-package/${travelPackage.data?.id}`}
+              >
+                Reservar
+              </Link>
             </div>
 
             <p className="text-lg text-gray-300">
