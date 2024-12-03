@@ -1,23 +1,54 @@
-//import { useState } from "react";
 import { useFormik } from "formik";
 import { FaArrowRight } from "react-icons/fa";
 import { loginInitValues, loginValidationSchema } from "../forms";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import { Loading } from "../../../shared/components/Loading";
 export const LoginPage = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const login = useAuthStore((state) => state.login);
+  const error = useAuthStore((state) => state.error);
+  const message = useAuthStore((state) => state.message);
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      navigate('/home');
+    }
+  }, [isAuthenticated]);
 
   const formik = useFormik({
     initialValues: loginInitValues,
     validationSchema: loginValidationSchema,
     validateOnChange: true,
-    onSubmit: (formValues) => {
-      console.log(formValues);
+    onSubmit: async (formValues) => {
+      // console.log(formValues);
+      setLoading(true);
+      await login(formValues);
+      setLoading(false);
     },
   });
 
+  if(loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="p-10 xs:p-0 mx-auto md:w-full md:max-w-md">
-      <h1 className="font-bold text-center text-2xl mb-5 text-unah-blue">
+      <h1 className="font-bold text-center text-2xl mb-5 text-gray-800">
         Iniciar Sesión
       </h1>
+      <div className="bg-white shadow w-full rounded-lg divide-y divide-gray-200">
+        {error ? (
+          <span className="p-4 block bg-red-500 text-white text-center rounded-t-lg">
+            {message}
+          </span>
+        ) : (
+          ""
+        )}
+      </div>
       <div className="bg-white shadow text-sm rounded-lg divide-y divide-gray-200">
         <form onSubmit={formik.handleSubmit} className="px-5 py-7">
           <div className="mb-4">
@@ -64,7 +95,7 @@ export const LoginPage = () => {
           </div>
           <button
             type="submit"
-            className="transition duration-200 bg-unah-blue hover:bg-unah-blueLight focus:bg-unah-blueLight focus:shadow-sm focus:ring-4 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
+            className="transition duration-200 bg-gray-900 hover:bg-gray-800 focus:bg-gray-800 focus:shadow-sm focus:ring-4 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block"
           >
             <span className="inline-block mr-2">Ingresar</span>
             <FaArrowRight className="w-4 h-4  inline-block" />
