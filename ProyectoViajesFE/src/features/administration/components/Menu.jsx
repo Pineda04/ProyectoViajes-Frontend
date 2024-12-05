@@ -1,4 +1,5 @@
 import { FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const Menu = () => {
   return (
@@ -40,8 +41,8 @@ export const Menu = () => {
               <p className="text-xs text-gray-500">Change your password</p>
             </div>
           </a>
-          <a
-            href="#"
+          <Link
+            to="/administration/activities"
             className="px-4 py-2 hover:bg-gray-100 flex"
           >
             <div className="text-gray-800">
@@ -52,9 +53,9 @@ export const Menu = () => {
               </p>
               <p className="text-xs text-gray-500">View your activities</p>
             </div>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/administration/destinations"
             className="px-4 py-2 hover:bg-gray-100 flex"
           >
             <div className="pl-3">
@@ -63,9 +64,9 @@ export const Menu = () => {
               </p>
               <p className="text-xs text-gray-500">View your destinations</p>
             </div>
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/administration/travel-packages"
             className="px-4 py-2 hover:bg-gray-100 flex"
           >
             <div className="text-gray-800">
@@ -76,7 +77,7 @@ export const Menu = () => {
               </p>
               <p className="text-xs text-gray-500">View your travel packages</p>
             </div>
-          </a>
+          </Link>
         </div>
         <div>
           <button

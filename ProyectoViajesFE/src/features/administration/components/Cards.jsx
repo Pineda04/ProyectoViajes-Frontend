@@ -3,7 +3,20 @@ import { GrNotes } from "react-icons/gr"
 import { HiOutlineUsers } from "react-icons/hi"
 import { IoMdPricetags } from "react-icons/io"
 
-export const Cards = () => {
+export const Cards = ({
+  usersCount = 0,
+  activitiesCount = 0,
+  assessmentsCount = 0,
+  destinationsCount = 0,
+  flightsCount = 0,
+  hostingsCount = 0,
+  pointsInterestCount = 0,
+  reservationsCount = 0,
+  travelPackagesCount = 0,
+  typesFlightsCount = 0,
+  typesHostingsCount = 0
+}) => {
+  
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 p-4 gap-4">
       <div className="bg-blue-500 dark:bg-gray-800 shadow-lg rounded-md flex items-center justify-between p-3 border-b-4 border-blue-600 dark:border-gray-600 text-white font-medium group">
@@ -11,7 +24,7 @@ export const Cards = () => {
           <HiOutlineUsers className="w-8 h-8 text-blue-800 dark:text-gray-800" />
         </div>
         <div className="text-right">
-          <p className="text-2xl">1,259</p>
+          <p className="text-2xl">{usersCount}</p>
           <p className="text-sm">Usuarios</p>
         </div>
       </div>
@@ -21,7 +34,7 @@ export const Cards = () => {
           <IoMdPricetags className="w-8 h-8 text-green-800 dark:text-gray-800" />
         </div>
         <div className="text-right">
-          <p className="text-2xl">230</p>
+          <p className="text-2xl">{activitiesCount}</p>
           <p className="text-sm">Actividades</p>
         </div>
       </div>
@@ -31,7 +44,7 @@ export const Cards = () => {
           <GrNotes className="w-8 h-8 text-orange-800 dark:text-gray-800" />
         </div>
         <div className="text-right">
-          <p className="text-2xl">190</p>
+          <p className="text-2xl">{destinationsCount}</p>
           <p className="text-sm">Destinos</p>
         </div>
       </div>
@@ -41,7 +54,7 @@ export const Cards = () => {
           <FaComments className="w-8 h-8 text-red-800 dark:text-gray-800" />
         </div>
         <div className="text-right">
-          <p className="text-2xl">320</p>
+          <p className="text-2xl">{travelPackagesCount}</p>
           <p className="text-sm">Paquetes de viaje</p>
         </div>
       </div>
