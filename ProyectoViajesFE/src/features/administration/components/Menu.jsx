@@ -51,7 +51,7 @@ export const Menu = () => {
               <p className="text-sm font-medium text-gray-800 leading-none">
                 Actividades
               </p>
-              <p className="text-xs text-gray-500">View your activities</p>
+              <p className="text-xs text-gray-500">Ver las actividades</p>
             </div>
           </Link>
           <Link
