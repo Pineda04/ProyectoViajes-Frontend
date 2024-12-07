@@ -16,6 +16,7 @@ export const useDashboardStore = create((set) => ({
     typesHostingsCount: 0,
     activities: [],
     destinations: [],
+    pointsInterest: [],
     travelPackages: [],
   },
   loadData: async () => {

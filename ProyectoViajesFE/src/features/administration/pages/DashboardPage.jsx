@@ -33,6 +33,7 @@ export const DashboardPage = () => {
     activities,
     destinations,
     travelPackages,
+    pointsInterest,
   } = dashboardData;
 
   return (
@@ -44,6 +45,7 @@ export const DashboardPage = () => {
             usersCount,
             activitiesCount,
             destinationsCount,
+            pointsInterestCount,
             travelPackagesCount,
           }}
         />
@@ -54,6 +56,7 @@ export const DashboardPage = () => {
           activities={activities}
           destinations={destinations}
           travelPackages={travelPackages}
+          pointsInterest={pointsInterest}
         />
       </div>
     </>

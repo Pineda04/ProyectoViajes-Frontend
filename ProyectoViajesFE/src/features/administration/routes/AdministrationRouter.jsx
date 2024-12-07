@@ -9,6 +9,9 @@ import { ActivitiesPage } from "../pages/Activities/ActivitiesPage";
 import { EditActivityPage, NewActivityPage } from "../pages/Activities";
 import { NewDestinationPage } from "../pages/Destinations/NewDestinationPage";
 import { EditDestinationPage } from "../pages/Destinations/EditDestinationPage";
+import { PointsInterestPage } from "../pages/PointsInterest/PointsInterestPage";
+import { NewPointInterestPage } from "../pages/PointsInterest/NewPointInterestPage";
+import { EditPointInterestPage } from "../pages/PointsInterest/EditPointInterestPage";
 
 export const AdministrationRouter = () => {
   return (
@@ -26,6 +29,9 @@ export const AdministrationRouter = () => {
               <Route path="/destinations" element={<DestinationsPage />} />
               <Route path="/destinations/new" element={<NewDestinationPage />} />
               <Route path="/destinations/edit/:id" element={<EditDestinationPage />} />
+              <Route path="/points-interest" element={<PointsInterestPage />} />
+              <Route path="/points-interest/new" element={<NewPointInterestPage />} />
+              <Route path="/points-interest/edit/:id" element={<EditPointInterestPage />} />
               <Route path="/travel-packages" element={<TravelPackagesPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />

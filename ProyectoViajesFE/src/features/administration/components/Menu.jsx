@@ -66,6 +66,17 @@ export const Menu = () => {
             </div>
           </Link>
           <Link
+            to="/administration/points-interest"
+            className="px-4 py-2 hover:bg-gray-100 flex"
+          >
+            <div className="pl-3">
+              <p className="text-sm font-medium text-gray-800 leading-none">
+                Puntos de interés
+              </p>
+              <p className="text-xs text-gray-500">Ver los puntos de interés</p>
+            </div>
+          </Link>
+          <Link
             to="/administration/travel-packages"
             className="px-4 py-2 hover:bg-gray-100 flex"
           >
