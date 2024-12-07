@@ -3,10 +3,12 @@ import { Footer, Header } from "../../content/components";
 import { DashboardPage } from "../pages/DashboardPage";
 import { Menu } from "../components/Menu";
 import { TravelPackagesPage } from "../pages/TravelPackagesPage";
-import { DestinationsPage } from "../pages/DestinationsPage";
+import { DestinationsPage } from "../pages/Destinations/DestinationsPage";
 import { UsersPage } from "../pages/UsersPage";
 import { ActivitiesPage } from "../pages/Activities/ActivitiesPage";
 import { EditActivityPage, NewActivityPage } from "../pages/Activities";
+import { NewDestinationPage } from "../pages/Destinations/NewDestinationPage";
+import { EditDestinationPage } from "../pages/Destinations/EditDestinationPage";
 
 export const AdministrationRouter = () => {
   return (
@@ -21,8 +23,10 @@ export const AdministrationRouter = () => {
               <Route path="/activities" element={<ActivitiesPage />} />
               <Route path="/activities/new" element={<NewActivityPage />} />
               <Route path="/activities/edit/:id" element={<EditActivityPage />} />
-              <Route path="/travel-packages" element={<TravelPackagesPage />} />
               <Route path="/destinations" element={<DestinationsPage />} />
+              <Route path="/destinations/new" element={<NewDestinationPage />} />
+              <Route path="/destinations/edit/:id" element={<EditDestinationPage />} />
+              <Route path="/travel-packages" element={<TravelPackagesPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />
             </Routes>

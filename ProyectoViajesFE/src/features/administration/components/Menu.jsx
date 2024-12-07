@@ -62,7 +62,7 @@ export const Menu = () => {
               <p className="text-sm font-medium text-gray-800 leading-none">
                 Destinos
               </p>
-              <p className="text-xs text-gray-500">View your destinations</p>
+              <p className="text-xs text-gray-500">Ver los destinos</p>
             </div>
           </Link>
           <Link
