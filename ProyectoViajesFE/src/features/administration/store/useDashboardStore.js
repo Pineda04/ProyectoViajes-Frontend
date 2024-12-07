@@ -19,6 +19,7 @@ export const useDashboardStore = create((set) => ({
     pointsInterest: [],
     travelPackages: [],
     typesFlights: [],
+    typesHostings: [],
   },
   loadData: async () => {
     const result = await dashboardAsync();

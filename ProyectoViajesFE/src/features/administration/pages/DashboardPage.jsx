@@ -48,6 +48,7 @@ export const DashboardPage = () => {
             pointsInterestCount,
             travelPackagesCount,
             typesFlightsCount,
+            typesHostingsCount,
           }}
         />
       </div>
