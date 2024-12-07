@@ -20,6 +20,9 @@ import { NewTypeFlightPage } from "../pages/TypesFlights/NewTypeFlightPage";
 import { TypesHostingsPage } from "../pages/TypesHostings/TypesHostingsPage";
 import { NewTypeHostingPage } from "../pages/TypesHostings/NewTypeHostingPage";
 import { EditTypeHostingPage } from "../pages/TypesHostings/EditTypeHostingPage";
+import { HostingsPage } from "../pages/Hostings/HostingsPage";
+import { NewHostingPage } from "../pages/Hostings/NewHostingPage";
+import { EditHostingPage } from "../pages/Hostings/EditHostingPage";
 
 export const AdministrationRouter = () => {
   return (
@@ -49,6 +52,9 @@ export const AdministrationRouter = () => {
               <Route path="/types-hostings" element={<TypesHostingsPage />} />
               <Route path="/types-hostings/new" element={<NewTypeHostingPage />} />
               <Route path="/types-hostings/edit/:id" element={<EditTypeHostingPage />} />
+              <Route path="/hostings" element={<HostingsPage />} />
+              <Route path="/hostings/new" element={<NewHostingPage />} />
+              <Route path="/hostings/edit/:id" element={<EditHostingPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />
             </Routes>
