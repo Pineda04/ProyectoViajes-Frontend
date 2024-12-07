@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Footer, Header } from "../../content/components";
 import { DashboardPage } from "../pages/DashboardPage";
 import { Menu } from "../components/Menu";
-import { TravelPackagesPage } from "../pages/TravelPackagesPage";
 import { DestinationsPage } from "../pages/Destinations/DestinationsPage";
 import { UsersPage } from "../pages/UsersPage";
 import { ActivitiesPage } from "../pages/Activities/ActivitiesPage";
@@ -12,6 +11,9 @@ import { EditDestinationPage } from "../pages/Destinations/EditDestinationPage";
 import { PointsInterestPage } from "../pages/PointsInterest/PointsInterestPage";
 import { NewPointInterestPage } from "../pages/PointsInterest/NewPointInterestPage";
 import { EditPointInterestPage } from "../pages/PointsInterest/EditPointInterestPage";
+import { TravelPackagesPage } from "../pages/TravelPackages/TravelPackagesPage";
+import { NewTravelPackagePage } from "../pages/TravelPackages/NewTravelPackagePage";
+import { EditTravelPackagePage } from "../pages/TravelPackages/EditTravelPackagePage";
 
 export const AdministrationRouter = () => {
   return (
@@ -33,6 +35,8 @@ export const AdministrationRouter = () => {
               <Route path="/points-interest/new" element={<NewPointInterestPage />} />
               <Route path="/points-interest/edit/:id" element={<EditPointInterestPage />} />
               <Route path="/travel-packages" element={<TravelPackagesPage />} />
+              <Route path="/travel-packages/new" element={<NewTravelPackagePage />} />
+              <Route path="/travel-packages/edit/:id" element={<EditTravelPackagePage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />
             </Routes>
