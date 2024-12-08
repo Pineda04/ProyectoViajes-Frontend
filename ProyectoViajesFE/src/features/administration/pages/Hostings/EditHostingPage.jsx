@@ -49,7 +49,8 @@ export const EditHostingPage = () => {
             description: result.data.description || '',
             pricePerNight: result.data.pricePerNight || '',
             typeHostingId: result.data.typeHostingId || '',
-            destinationId: result.data.destinationId || ''
+            travelPackageId: result.data.travelPackageId || '',
+            imageUrl: result.data.imageUrl || ''
           });
         } else {
           setError("No se pudo cargar el hospedaje");
@@ -169,6 +170,27 @@ export const EditHostingPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
+            <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
+              Url de la imagen
+            </label>
+            <input
+              type="text"
+              name="imageUrl"
+              id="imageUrl"
+              value={formik.values.imageUrl}
+              onChange={formik.handleChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            />
+            {formik.errors.imageUrl && (
+              <p className="mt-2 text-sm text-red-600">{formik.errors.imageUrl}</p>
+            )}
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
             <label htmlFor="typeHostingId" className="block text-sm font-medium text-gray-700">
               Id del tipo de hospedaje al que pertenece
             </label>
@@ -190,19 +212,19 @@ export const EditHostingPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <label htmlFor="destinationId" className="block text-sm font-medium text-gray-700">
-              Id del destino al que pertenece
+            <label htmlFor="travelPackageId" className="block text-sm font-medium text-gray-700">
+              Id del paquete de viaje al que pertenece
             </label>
             <input
               type="text"
-              name="destinationId"
-              id="destinationId"
-              value={formik.values.destinationId}
+              name="travelPackageId"
+              id="travelPackageId"
+              value={formik.values.travelPackageId}
               onChange={formik.handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
-            {formik.errors.destinationId && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.destinationId}</p>
+            {formik.errors.travelPackageId && (
+              <p className="mt-2 text-sm text-red-600">{formik.errors.travelPackageId}</p>
             )}
           </motion.div>
 

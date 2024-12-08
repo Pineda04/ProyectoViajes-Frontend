@@ -103,6 +103,19 @@ export const Menu = () => {
             </div>
           </Link>
           <Link
+            to="/administration/flights"
+            className="px-4 py-2 hover:bg-gray-100 flex"
+          >
+            <div className="text-gray-800">
+            </div>
+            <div className="pl-3">
+              <p className="text-sm font-medium text-gray-800 leading-none">
+                Vuelos
+              </p>
+              <p className="text-xs text-gray-500">Ver los vuelos</p>
+            </div>
+          </Link>
+          <Link
             to="/administration/types-hostings"
             className="px-4 py-2 hover:bg-gray-100 flex"
           >

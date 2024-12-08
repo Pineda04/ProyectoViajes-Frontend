@@ -19,6 +19,7 @@ export const useDashboardStore = create((set) => ({
     pointsInterest: [],
     travelPackages: [],
     typesFlights: [],
+    flights: [],
     typesHostings: [],
     hostings: [],
   },

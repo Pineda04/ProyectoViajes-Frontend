@@ -2,32 +2,32 @@ import { useFormik } from "formik";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { hostingInitValues, hostingValidationSchema } from "../../form/hosting.form";
+import { flightInitValues, flightValidationSchema } from "../../form/flight.form";
 import { viajesApi } from "../../../../config/api/viajesApi";
 import { Loading } from "../../../../shared/components/Loading";
 
-export const NewHostingPage = () => {
+export const NewFlightPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   
   const formik = useFormik({
-    initialValues: hostingInitValues(),
-    validationSchema: hostingValidationSchema(),
+    initialValues: flightInitValues(),
+    validationSchema: flightValidationSchema(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
       try {
         setIsLoading(true);
-        const { data } = await viajesApi.post('/hostings', formValues);
+        const { data } = await viajesApi.post('/flights', formValues);
         
         if (data.status) {
-          navigate('/administration/hostings');
+          navigate('/administration/flights');
         } else {
-          setError(data.message || "Error al crear el hospedaje");
+          setError(data.message || "Error al crear el vuelo");
         }
       } catch (error) {
         console.error(error);
-        setError("Error al crear el hospedaje");
+        setError("Error al crear el vuelo");
       } finally {
         setIsLoading(false);
       }
@@ -51,7 +51,7 @@ export const NewHostingPage = () => {
             transition={{ delay: 0.2 }}
             className="text-3xl font-extrabold text-gray-900"
           >
-            Crear Nuevo Hospedaje
+            Crear Nuevo Vuelo
           </motion.h2>
         </div>
         
@@ -75,40 +75,19 @@ export const NewHostingPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-              Nombre
+            <label htmlFor="airline" className="block text-sm font-medium text-gray-700">
+              Nombre de la aerolínea
             </label>
             <input
               type="text"
-              name="name"
-              id="name"
-              value={formik.values.name}
+              name="airline"
+              id="airline"
+              value={formik.values.airline}
               onChange={formik.handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
-            {formik.errors.name && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.name}</p>
-            )}
-          </motion.div>
-          
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-              Descripción
-            </label>
-            <textarea
-              name="description"
-              id="description"
-              rows={4}
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            ></textarea>
-            {formik.errors.description && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.description}</p>
+            {formik.errors.airline && (
+              <p className="mt-2 text-sm text-red-600">{formik.errors.airline}</p>
             )}
           </motion.div>
 
@@ -117,19 +96,19 @@ export const NewHostingPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <label htmlFor="pricePerNight" className="block text-sm font-medium text-gray-700">
-              Precio por noche ($)
+            <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+              Precio del vuelo ($)
             </label>
             <input
               type="text"
-              name="pricePerNight"
-              id="pricePerNight"
-              value={formik.values.pricePerNight}
+              name="price"
+              id="price"
+              value={formik.values.price}
               onChange={formik.handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
-            {formik.errors.pricePerNight && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.pricePerNight}</p>
+            {formik.errors.price && (
+              <p className="mt-2 text-sm text-red-600">{formik.errors.price}</p>
             )}
           </motion.div>
 
@@ -138,40 +117,19 @@ export const NewHostingPage = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
-              Url de la imagen
+            <label htmlFor="typeFlightId" className="block text-sm font-medium text-gray-700">
+              Id del tipo de vuelo
             </label>
             <input
               type="text"
-              name="imageUrl"
-              id="imageUrl"
-              value={formik.values.imageUrl}
+              name="typeFlightId"
+              id="typeFlightId"
+              value={formik.values.typeFlightId}
               onChange={formik.handleChange}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             />
-            {formik.errors.imageUrl && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.imageUrl}</p>
-            )}
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <label htmlFor="typeHostingId" className="block text-sm font-medium text-gray-700">
-              Id del tipo de hospedaje al que pertenece
-            </label>
-            <input
-              type="text"
-              name="typeHostingId"
-              id="typeHostingId"
-              value={formik.values.typeHostingId}
-              onChange={formik.handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-            {formik.errors.typeHostingId && (
-              <p className="mt-2 text-sm text-red-600">{formik.errors.typeHostingId}</p>
+            {formik.errors.typeFlightId && (
+              <p className="mt-2 text-sm text-red-600">{formik.errors.typeFlightId}</p>
             )}
           </motion.div>
 
@@ -181,7 +139,7 @@ export const NewHostingPage = () => {
             transition={{ delay: 0.3 }}
           >
             <label htmlFor="travelPackageId" className="block text-sm font-medium text-gray-700">
-              Id del paquete de viaje al que pertenece
+              Id del paquete de viaje
             </label>
             <input
               type="text"
@@ -205,7 +163,7 @@ export const NewHostingPage = () => {
               type="submit"
               className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-300 ease-in-out transform hover:scale-105"
             >
-              Crear Hospedaje
+              Crear Vuelo
             </button>
           </motion.div>
         </form>

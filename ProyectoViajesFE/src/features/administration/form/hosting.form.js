@@ -6,7 +6,8 @@ export const hostingInitValues = () => ({
     description: '',
     pricePerNight: '',
     typeHostingId: '',
-    destinationId: ''
+    travelPackageId: '',
+    imageUrl: ''
 });
 
 export const hostingValidationSchema = () => Yup.object({
@@ -24,6 +25,8 @@ export const hostingValidationSchema = () => Yup.object({
         .min(0, "El precio no puede ser negativo"),
     typeHostingId: Yup.string()
         .required("El id del tipo de hospedaje es requerido"),
-    destinationId: Yup.string()
-        .required("El id del destino es requerido")
+    travelPackageId: Yup.string()
+        .required("El id del paquete de viaje es requerido"),
+    imageUrl: Yup.string()
+        .required("La url de imagen del hospedaje es obligatoria")
 });
