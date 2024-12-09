@@ -30,10 +30,15 @@ export const DashboardPage = () => {
     travelPackagesCount,
     typesFlightsCount,
     typesHostingsCount,
+    users,
     activities,
     destinations,
     travelPackages,
     pointsInterest,
+    flights,
+    hostings,
+    reservations,
+    assessments,
   } = dashboardData;
 
   return (
@@ -51,16 +56,23 @@ export const DashboardPage = () => {
             flightsCount,
             typesHostingsCount,
             hostingsCount,
+            reservationsCount,
+            assessmentsCount,
           }}
         />
       </div>
       <div className="row-start-2 col-start-2 p-4">
         {/* Last activity */}
         <LastActivity
+        users={users}
           activities={activities}
           destinations={destinations}
           travelPackages={travelPackages}
           pointsInterest={pointsInterest}
+          flights={flights}
+          hostings={hostings}
+          reservations={reservations}
+          assessments={assessments}
         />
       </div>
     </>
