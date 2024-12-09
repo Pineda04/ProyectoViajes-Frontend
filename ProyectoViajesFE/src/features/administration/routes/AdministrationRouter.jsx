@@ -27,6 +27,7 @@ import { FlightsPage } from "../pages/Flights/FlightsPage";
 import { NewFlightPage } from "../pages/Flights/NewFlightPage";
 import { EditFlightPage } from "../pages/Flights/EditFlightPage";
 import { AssessmentsPage } from "../pages/Assessments/AssessmentsPage";
+import { ReservationsPage } from "../pages/Reservations/ReservationsPage";
 
 export const AdministrationRouter = () => {
   return (
@@ -63,6 +64,7 @@ export const AdministrationRouter = () => {
               <Route path="/hostings/new" element={<NewHostingPage />} />
               <Route path="/hostings/edit/:id" element={<EditHostingPage />} />
               <Route path="/assessments" element={<AssessmentsPage />} />
+              <Route path="/reservations" element={<ReservationsPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />
             </Routes>

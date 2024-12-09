@@ -1,8 +1,9 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useAssessmentsStore } from "../../store/useAssessmentsStore";
+import { useReservationsStore } from "../../store/useReservationsStore";
 import { useEffect, useState } from "react";
 import { Loading } from "../../../../shared/components/Loading";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { formatDate } from "../../../../shared/utils";
 
 export function QlementineIconsNew16(props) {
   return (
@@ -89,42 +90,16 @@ export function IconParkOutlineSearch(props) {
   );
 }
 
-const StarRating = ({ stars }) => {
-  return (
-    <div className="flex items-center">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <svg
-          key={star}
-          xmlns="http://www.w3.org/2000/svg"
-          className={`h-5 w-5 ${
-            star <= stars ? "text-yellow-400" : "text-gray-300"
-          }`}
-          viewBox="0 0 24 24"
-          fill={star <= stars ? "currentColor" : "none"}
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-          />
-        </svg>
-      ))}
-    </div>
-  );
-};
-
-export const AssessmentsPage = () => {
-  const assessmentsData = useAssessmentsStore((state) => state.assessmentsData);
-  const loadData = useAssessmentsStore((state) => state.loadData);
-  const nextPage = useAssessmentsStore((state) => state.nextPage);
-  const previousPage = useAssessmentsStore((state) => state.previousPage);
+export const ReservationsPage = () => {
+  const reservationsData = useReservationsStore((state) => state.reservationsData);
+  const loadData = useReservationsStore((state) => state.loadData);
+  const nextPage = useReservationsStore((state) => state.nextPage);
+  const previousPage = useReservationsStore((state) => state.previousPage);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [assessmentToDelete, setAssessmentToDelete] = useState(null);
+  const [reservationToDelete, setReservationToDelete] = useState(null);
 
   useEffect(() => {
     if (isLoading) {
@@ -140,24 +115,24 @@ export const AssessmentsPage = () => {
     loadData(searchTerm);
   };
 
-  const openDeleteModal = (assessment) => {
-    setAssessmentToDelete(assessment);
+  const openDeleteModal = (reservation) => {
+    setReservationToDelete(reservation);
     setIsDeleteModalOpen(true);
   };
 
   const closeDeleteModal = () => {
     setIsDeleteModalOpen(false);
-    setAssessmentToDelete(null);
+    setReservationToDelete(null);
   };
 
   const handleConfirmDelete = async () => {
-    if (assessmentToDelete) {
+    if (reservationToDelete) {
       try {
-        await useAssessmentsStore
+        await useReservationsStore
           .getState()
-          .deleteAssessment(assessmentToDelete.id);
+          .deleteReservation(reservationToDelete.id);
       } catch (error) {
-        console.error("Error al eliminar la reseña:", error);
+        console.error("Error al cancelar la reservación:", error);
       }
 
       closeDeleteModal();
@@ -196,7 +171,7 @@ export const AssessmentsPage = () => {
               type="search"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Buscar reseñas..."
+              placeholder="Buscar reservaciones..."
               className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             />
             <motion.button
@@ -235,36 +210,40 @@ export const AssessmentsPage = () => {
                 Reseña hecha por
               </th>
               <th scope="col" className="px-6 py-3 w-2/5">
-                Paquete de viaje calificado
+                Paquete de viaje reservado
               </th>
               <th scope="col" className="px-6 py-3 w-2/5">
-                Valoración
+                Fecha de reservación
               </th>
               <th scope="col" className="px-6 py-3 w-1/5"></th>
             </tr>
           </thead>
           <tbody>
-            {assessmentsData.items.map((assessment) => (
+            {reservationsData.items.map((reservation) => (
               <tr
-                key={assessment.id}
+                key={reservation.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate"
-                  title={assessment.userId}
+                  title={reservation.userId}
                 >
-                  {assessment.userId}
+                  {reservation.userId}
                 </th>
                 <td
                   className="px-6 py-4 truncate"
-                  title={assessment.travelPackageId}
+                  title={reservation.travelPackageId}
                 >
-                  {assessment.travelPackageId}
+                  {reservation.travelPackageId}
                 </td>
-                <td className="px-6 py-4">
-                  <StarRating stars={assessment.stars} />
-                </td>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate"
+                  title={reservation.reservationDate}
+                >
+                  {formatDate(reservation.reservationDate)}
+                </th>
                 <td className="px-6 py-4 text-right">
                   <div className="flex justify-end gap-2">
                     {/* Botón de Borrar */}
@@ -274,13 +253,13 @@ export const AssessmentsPage = () => {
                       whileTap="tap"
                     >
                       <button
-                        onClick={() => openDeleteModal(assessment)}
+                        onClick={() => openDeleteModal(reservation)}
                         className="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors duration-300 flex items-center gap-1 text-xs"
                       >
                         <motion.div variants={iconVariants}>
                           <MingcuteDeleteLine className="h-5 w-5" />
                         </motion.div>
-                        Borrar
+                        Cancelar
                       </button>
                     </motion.div>
                   </div>
@@ -308,12 +287,12 @@ export const AssessmentsPage = () => {
               className="bg-white rounded-xl p-6 max-w-md w-full shadow-xl"
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Eliminar Reseña
+                Cancelar Reservación
               </h2>
               <p className="text-gray-600 mb-6">
-                ¿Está seguro de que desea eliminar la reseña del paquete de
-                viaje {assessmentToDelete?.travelPackageId} hecha por{" "}
-                {assessmentToDelete?.userId}? Todos los datos relacionados se
+                ¿Está seguro de que desea cancelar la reservación del paquete de
+                viaje {reservationToDelete?.travelPackageId} hecha por{" "}
+                {reservationToDelete?.userId}? Todos los datos relacionados se
                 eliminarán permanentemente.
               </p>
               <div className="flex justify-end space-x-4">
@@ -340,17 +319,17 @@ export const AssessmentsPage = () => {
         <div className="text-sm text-gray-800 dark:text-gray-800">
           Pagina{" "}
           <span className="font-medium text -gray-700 dark:text-gray-800">
-            {assessmentsData.currentPage} de {assessmentsData.totalPages}
+            {reservationsData.currentPage} de {reservationsData.totalPages}
           </span>
         </div>
 
         <div className="flex items-center mt-4 gap-x-4 sm:mt-0">
           <motion.button
             onClick={previousPage}
-            disabled={!assessmentsData.hasPreviousPage}
+            disabled={!reservationsData.hasPreviousPage}
             className={`flex items-center justify-center px-5 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300 
               ${
-                !assessmentsData.hasPreviousPage
+                !reservationsData.hasPreviousPage
                   ? "opacity-50 cursor-not-allowed"
                   : ""
               }`}
@@ -364,10 +343,10 @@ export const AssessmentsPage = () => {
 
           <motion.button
             onClick={nextPage}
-            disabled={!assessmentsData.hasNextPage}
+            disabled={!reservationsData.hasNextPage}
             className={`flex items-center justify-center px-5 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-colors duration-300
               ${
-                !assessmentsData.hasNextPage
+                !reservationsData.hasNextPage
                   ? "opacity-50 cursor-not-allowed"
                   : ""
               }`}
