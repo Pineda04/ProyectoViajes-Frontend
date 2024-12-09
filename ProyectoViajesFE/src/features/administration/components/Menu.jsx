@@ -141,6 +141,32 @@ export const Menu = () => {
               <p className="text-xs text-gray-500">Ver los hospedajes</p>
             </div>
           </Link>
+          <Link
+            to="/administration/reservations"
+            className="px-4 py-2 hover:bg-gray-100 flex"
+          >
+            <div className="text-gray-800">
+            </div>
+            <div className="pl-3">
+              <p className="text-sm font-medium text-gray-800 leading-none">
+                Reservaciones
+              </p>
+              <p className="text-xs text-gray-500">Ver las reservaciones</p>
+            </div>
+          </Link>
+          <Link
+            to="/administration/assessments"
+            className="px-4 py-2 hover:bg-gray-100 flex"
+          >
+            <div className="text-gray-800">
+            </div>
+            <div className="pl-3">
+              <p className="text-sm font-medium text-gray-800 leading-none">
+                Reseñas
+              </p>
+              <p className="text-xs text-gray-500">Ver las reseñas</p>
+            </div>
+          </Link>
         </div>
         <div>
           <button
