@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../../security/store";
 import { ProtectedComponent } from "../../../shared/components/ProtectedComponent";
 import { rolesListConstant } from "../../../shared/constants/roles-list.constant";
+import { FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,22 +39,34 @@ export const Header = () => {
             </button>
           </div>
         </div>
-        
+
         <div
           className={`${
             isMenuOpen ? "flex" : "hidden"
           } flex-col md:flex md:flex-row md:space-x-6 md:items-center`}
         >
-          <Link to="/home" className="my-1 text-white hover:text-yellow-400 md:my-0">
+          <Link
+            to="/home"
+            className="my-1 text-white hover:text-yellow-400 md:my-0"
+          >
             Inicio
           </Link>
-          <Link to="/destinations" className="my-1 text-white hover:text-yellow-400 md:my-0">
+          <Link
+            to="/destinations"
+            className="my-1 text-white hover:text-yellow-400 md:my-0"
+          >
             Destinos
           </Link>
-          <Link to="/travel-packages" className="my-1 text-white hover:text-yellow-400 md:my-0">
+          <Link
+            to="/travel-packages"
+            className="my-1 text-white hover:text-yellow-400 md:my-0"
+          >
             Paquetes de viaje
           </Link>
-          <Link to="/contact" className="my-1 text-white hover:text-yellow-400 md:my-0">
+          <Link
+            to="/contact"
+            className="my-1 text-white hover:text-yellow-400 md:my-0"
+          >
             Contacto
           </Link>
 
@@ -65,19 +78,50 @@ export const Header = () => {
               Administración
             </Link>
           </ProtectedComponent>
-          
+
+          {/* Botón de Autenticación */}
           {isAuthenticated ? (
-            <button 
+            <button
               onClick={handleLogout}
-              className="bg-gray-800 text-yellow-500 font-semibold py-2 px-4 rounded-lg border border-yellow-500 hover:bg-gray-700 transition"
+              className="
+      flex items-center 
+      bg-transparent 
+      text-red-400 
+      border border-red-400 
+      hover:bg-red-400 
+      hover:text-white 
+      font-semibold 
+      py-2 
+      px-4 
+      rounded-lg 
+      transition-all 
+      duration-300 
+      group
+    "
             >
-              Salir
+              <FaSignOutAlt className="mr-2 group-hover:rotate-180 transition" />
+              Cerrar Sesión
             </button>
           ) : (
             <Link
               to="/security/login"
-              className="bg-gray-800 text-yellow-500 font-semibold py-2 px-4 rounded-lg border border-yellow-500 hover:bg-gray-700 transition"
+              className="
+      flex items-center 
+      bg-transparent 
+      text-yellow-500 
+      border border-yellow-500 
+      hover:bg-yellow-500 
+      hover:text-gray-900 
+      font-semibold 
+      py-2 
+      px-4 
+      rounded-lg 
+      transition-all 
+      duration-300 
+      group
+    "
             >
+              <FaSignInAlt className="mr-2" />
               Iniciar Sesión
             </Link>
           )}
