@@ -3,7 +3,6 @@ import { Footer, Header } from "../../content/components";
 import { DashboardPage } from "../pages/DashboardPage";
 import { Menu } from "../components/Menu";
 import { DestinationsPage } from "../pages/Destinations/DestinationsPage";
-import { UsersPage } from "../pages/UsersPage";
 import { ActivitiesPage } from "../pages/Activities/ActivitiesPage";
 import { EditActivityPage, NewActivityPage } from "../pages/Activities";
 import { NewDestinationPage } from "../pages/Destinations/NewDestinationPage";
@@ -28,16 +27,18 @@ import { NewFlightPage } from "../pages/Flights/NewFlightPage";
 import { EditFlightPage } from "../pages/Flights/EditFlightPage";
 import { AssessmentsPage } from "../pages/Assessments/AssessmentsPage";
 import { ReservationsPage } from "../pages/Reservations/ReservationsPage";
+import { UsersPage } from "../pages/Users/UsersPage";
 
 export const AdministrationRouter = () => {
   return (
-    <div className="overflow-x-hidden bg-gray-100 w-screen h-screen bg-hero-pattern bg-no-repeat bg-cover">
+    <div className="overflow-x-hidden bg-gray-100 w-screen h-screen bg-hero-pattern bg-no-repeat bg-cover flex flex-col">
       <Header />
-      <div className="px-6 py-8">
-        <div className="flex gap-4">
+      <div className="px-6 py-8 flex-grow flex">
+        <div className="w-72 flex-shrink-0">
           <Menu />
-          <div className="w-full">
-            <Routes>
+        </div>
+        <div className="w-full overflow-y-auto ml-4">
+          <Routes>
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/activities" element={<ActivitiesPage />} />
               <Route path="/activities/new" element={<NewActivityPage />} />
@@ -67,8 +68,7 @@ export const AdministrationRouter = () => {
               <Route path="/reservations" element={<ReservationsPage />} />
               <Route path="/users" element={<UsersPage />} />
               <Route path="/*" element={<Navigate to={"/dashboard"} />} />
-            </Routes>
-          </div>
+              </Routes>
         </div>
       </div>
       <Footer />
