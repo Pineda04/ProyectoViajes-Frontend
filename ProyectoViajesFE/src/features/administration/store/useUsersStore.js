@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { deleteUserAsync, getUsersByIdAsync, getUsersPaginationAsync } from "../../../shared/actions/users/users.admin.action";
+import { viajesApi } from "../../../config/api";
 
 export const useUsersStore = create((set, get) => ({
     selectedUser: {},
@@ -42,6 +43,15 @@ export const useUsersStore = create((set, get) => ({
             await get().loadData("", usersData.currentPage - 1);
         }
     },
+    updateUser: async (userData) => {
+        try {
+          const { data } = await viajesApi.put(`/users/${userData.id}`, userData);
+          return data;
+        } catch (error) {
+          console.error(error);
+          return error?.response?.data || { status: false, message: "Error al actualizar el usuario" };
+        }
+      },
     deleteUser: async (id) => {
         const result = await deleteUserAsync(id);
         if (result.status) {

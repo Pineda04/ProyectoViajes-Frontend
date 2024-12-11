@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react';
-import { FaBookmark, FaSignOutAlt, FaUser, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { 
+  CovidTransmissionVirusAirplaneFlight, 
+  FluentMdl2AccountActivity, 
+  MaterialSymbolsFlightsmode, 
+  MaterialSymbolsTravelExplore, 
+  OuiCalendar, 
+  PajamasComments, 
+  StreamlineTravelMapTriangleFlagNavigationMapMapsFlagGpsLocationDestinationGoal 
+} from './Cards';
+import { useUsersStore } from '../store/useUsersStore';
 import { useAuthStore } from '../../security/store';
 import { jwtDecode } from 'jwt-decode';
+import { FaBookmark, FaChevronDown, FaChevronUp, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { MdCardTravel } from 'react-icons/md';
-import { BsHousesFill } from 'react-icons/bs';
 import { BiSolidBuildingHouse } from 'react-icons/bi';
-import { CovidTransmissionVirusAirplaneFlight, FluentMdl2AccountActivity, MaterialSymbolsFlightsmode, MaterialSymbolsTravelExplore, OuiCalendar, PajamasComments, StreamlineTravelMapTriangleFlagNavigationMapMapsFlagGpsLocationDestinationGoal } from './Cards';
+import { BsHousesFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 export const Menu = () => {
   const [isAdministrationOpen, setIsAdministrationOpen] = useState(false);
-  const [email, setEmail] = useState('Usuario');
-  const [userFirstName, setUserFirstName] = useState(null);
-  const [userLastName, setUserLastName] = useState(null);
-  const [userImage, setUserImage] = useState(null);
-
+  const [userId, setUserId] = useState(null);
+  
+  const { getUser, selectedUser } = useUsersStore();
   const { logout } = useAuthStore();
 
   useEffect(() => {
@@ -22,17 +29,13 @@ export const Menu = () => {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        const userEmail = decodedToken[
-          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-        ];
-        const extractedUserImage = decodedToken["UserImage"] || null;
-        const extractedUserFirstName = decodedToken["UserFirstName"] || null;
-        const extractedUserLastName = decodedToken["UserLastName"] || null;
-
-        setUserFirstName(extractedUserFirstName);
-        setUserLastName(extractedUserLastName);
-        setEmail(userEmail || 'Usuario');
-        setUserImage(extractedUserImage);
+        const extractedUserId = decodedToken["UserId"] || null;
+        
+        if (extractedUserId) {
+          setUserId(extractedUserId);
+          // Cargar información del usuario
+          getUser(extractedUserId);
+        }
       } catch (err) {
         console.error("Error decoding token", err);
       }
@@ -48,20 +51,19 @@ export const Menu = () => {
       {/* Perfil Header */}
       <div className="bg-gray-800 text-white p-6 flex flex-col items-center">
         <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-white mb-4">
-          {userImage && (
-            <img 
-            src= {userImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgpnmY-O9iz09Jka-vGvK2Lv-U-pL3H18CfA&s"}
+          <img 
+            src={selectedUser?.imageUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgpnmY-O9iz09Jka-vGvK2Lv-U-pL3H18CfA&s"}
             alt="Profile"
             className="w-full h-full object-cover"
           />
-          )}
         </div>
         <div className="text-center">
-        {userFirstName && (
-            <h4 className="text-sm opacity-80">{userFirstName.split(' ')[0] + " " + userLastName.split(' ')[0]}</h4>
+          {selectedUser?.firstName && selectedUser?.lastName && (
+            <h4 className="text-sm opacity-80">
+              {`${selectedUser.firstName.split(' ')[0]} ${selectedUser.lastName.split(' ')[0]}`}
+            </h4>
           )}
-          <h6 className="font-bold">{email}</h6>
-          
+          <h6 className="font-bold">{selectedUser?.email || 'Usuario'}</h6>
         </div>
       </div>
 
@@ -72,7 +74,7 @@ export const Menu = () => {
             icon={<FaUser className="text-blue-500" />} 
             title="Ver Perfil" 
             subtitle="Detalles de tu cuenta"
-            to="/profile"
+            to={`/administration/users/edit/${userId}`}
           />
         </MenuSection>
 
@@ -172,7 +174,7 @@ export const Menu = () => {
 
 const MenuSection = ({ title, children }) => (
   <div className="mb-4">
-    <h3 className="px-4 text-xs text-gray-500 uppercase mb-2">{title}</h3>
+    <h3 className="px-4 text-xs text-gray -500 uppercase mb-2">{title}</h3>
     {children}
   </div>
 );

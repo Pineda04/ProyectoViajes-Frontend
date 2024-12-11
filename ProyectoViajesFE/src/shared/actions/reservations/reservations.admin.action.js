@@ -34,3 +34,12 @@ export const deleteReservationAsync = async (id) => {
     return error?.response.data;
   }
 };
+export const createReservationPackageAsync = async (reservation) => {
+  try {
+    const { data } = await viajesApi.post(`/reservations`, reservation);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error?.response.data;
+  }
+};

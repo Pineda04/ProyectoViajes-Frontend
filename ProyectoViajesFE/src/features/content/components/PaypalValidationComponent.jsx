@@ -1,7 +1,6 @@
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { getTravelPackageById } from "../../../shared/actions/travelPackages/travelPackages.action";
-import { useNavigate } from "react-router-dom";
 import { ReservationDetailsSkeleton } from "./ReservationDetailsSkeleton";
 import { jwtDecode } from "jwt-decode";
 import { useReservationsStore } from "../../administration/store/useReservationsStore";
@@ -23,12 +22,19 @@ export const ReservationDetails = () => {
   const { logout } = useAuthStore();
   const { getUser } = useUsersStore();
 
-  // Configuración inicial de PayPal
   const initialOptions = {
     "client-id": "ATqQ8EVaesK7DiBYedkF1iPZldaq-EYuXCK2S_4kD4vXPvsKtVPmtKjhoOJ-8zPN6qgtt1cyOOjLkP2J",
     currency: "USD",
     intent: "capture"
   };
+
+  // Cargar fecha desde localStorage al montar el componente
+  useEffect(() => {
+    const savedDate = localStorage.getItem('reservationDate');
+    if (savedDate) {
+      setDate(savedDate);
+    }
+  }, []);
 
   // Obtener el ID del usuario desde el token
   useEffect(() => {
@@ -79,6 +85,13 @@ export const ReservationDetails = () => {
     }
   }, [id, userId]);
 
+  // Manejar cambio de fecha y guardar en localStorage
+  const handleDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setDate(selectedDate);
+    localStorage.setItem('reservationDate', selectedDate);
+  };
+
   // Crear orden de PayPal
   const createOrder = (data, actions) => {
     return actions.order.create({
@@ -93,11 +106,20 @@ export const ReservationDetails = () => {
     });
   };
   
+  // Manejar aprobación de PayPal
   const onApprove = async (data, actions) => {
     try {
+      // Validar que la fecha exista en localStorage ANTES de capturar la orden
+      const reservationDate = localStorage.getItem('reservationDate');
+
+      if (!reservationDate) {
+        setError("Por favor seleccione una fecha.");
+        return;
+      }
+
+      // Capturar la orden de PayPal
       const details = await actions.order.capture();
       
-      // Verificar ID de usuario
       if (!userId) {
         setError("No se pudo obtener el ID del usuario. Por favor, inicie sesión nuevamente.");
         logout();
@@ -105,26 +127,21 @@ export const ReservationDetails = () => {
         return;
       }
 
-      // Validaciones
-      if (!date) {
-        setError("Por favor seleccione una fecha.");
-        return;
-      }
-
-      // Preparar objeto de reservación
       const reservationData = {
         travelPackageId: id,
         flightId: packageDetails.flights[0]?.id,
         hostingId: packageDetails.hostings[0]?.id,
-        reservationDate: date,
+        reservationDate: reservationDate,
         userId: userId,
         paymentDetails: details
       };
 
-      // Crear la reservación usando el store
+      console.log("Datos de reservación:", reservationData);
+
       const result = await createReservation(reservationData);
 
       if (result.status) {
+        localStorage.removeItem('reservationDate');
         alert("Reserva creada con éxito");
         navigate("/home");
       } else {
@@ -195,10 +212,12 @@ export const ReservationDetails = () => {
                 {packageDetails.destinations?.name || "No especificado"}
               </p>
               <p className="text-lg text-gray-300">
-                <strong>Precio:</strong>{" "}
+                <strong>Precio:</ <strong>Precio:</strong>{" "}
                 ${packageDetails.price?.toFixed(2) || "No especificado"}
               </p>
-            </div> <form className="mt-8 space-y-6">
+            </div>
+
+            <form className="mt-8 space-y-6">
               {/* Fecha de reservación */}
               <div>
                 <label htmlFor="date" className="block text-lg text-gray-300">
@@ -207,14 +226,13 @@ export const ReservationDetails = () => {
                 <input
                   type="date"
                   id="date"
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  value={localStorage.getItem('reservationDate') || date}
+                  onChange={handleDateChange}
                   className="w-full mt-2 p-2 bg-gray-700 text-white border border-gray-600 rounded"
                   required
                 />
               </div>
 
-              {/* Botón de PayPal para confirmar la reserva */}
               <PayPalScriptProvider options={initialOptions}>
                 <PayPalButtons
                   style={{

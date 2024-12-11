@@ -34,3 +34,21 @@ export const deleteAssessmentAsync = async (id) => {
     return error?.response.data;
   }
 };
+export const updateAssessmentAsync = async (assessment) => {
+  try {
+    const { data } = await viajesApi.put(`/assessments/${assessment.id}`, assessment);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error?.response.data;
+  }
+};
+export const createAssessmentAsync = async (assessment) => {
+  try {
+    const { data } = await viajesApi.post(`/assessments`, assessment);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error?.response.data;
+  }
+};

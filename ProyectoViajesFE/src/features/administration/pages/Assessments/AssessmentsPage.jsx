@@ -252,15 +252,15 @@ export const AssessmentsPage = () => {
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white truncate"
-                  title={assessment.userId}
+                  title={assessment.userName}
                 >
-                  {assessment.userId}
+                  {assessment.userName}
                 </th>
                 <td
                   className="px-6 py-4 truncate"
-                  title={assessment.travelPackageId}
+                  title={assessment.travelPackageName}
                 >
-                  {assessment.travelPackageId}
+                  {assessment.travelPackageName}
                 </td>
                 <td className="px-6 py-4">
                   <StarRating stars={assessment.stars} />

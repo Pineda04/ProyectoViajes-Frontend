@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { deleteReservationAsync, getReservationsByIdAsync, getReservationsPaginationAsync } from "../../../shared/actions/reservations/reservations.admin.action";
+import { createReservationPackageAsync, deleteReservationAsync, getReservationsByIdAsync, getReservationsPaginationAsync } from "../../../shared/actions/reservations/reservations.admin.action";
 
 export const useReservationsStore = create((set, get) => ({
     selectedReservation: {},
@@ -49,5 +49,13 @@ export const useReservationsStore = create((set, get) => ({
           return result;
         }
         return result;
-      }
+      },
+      createReservation: async (reservation) => {
+        const result = await createReservationPackageAsync(reservation);
+        if(result.status) {
+          await get().loadData("", get().reservationsData.currentPage);
+          return result;
+        }
+        return result;
+      },
 }));

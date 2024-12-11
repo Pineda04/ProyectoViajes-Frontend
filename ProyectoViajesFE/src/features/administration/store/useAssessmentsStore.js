@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { deleteAssessmentAsync, getAssessmentsByIdAsync, getAssessmentsPaginationAsync } from "../../../shared/actions/assessments/assessments.admin.action";
+import { createAssessmentAsync, deleteAssessmentAsync, getAssessmentsByIdAsync, getAssessmentsPaginationAsync, updateAssessmentAsync } from "../../../shared/actions/assessments/assessments.admin.action";
 
 export const useAssessmentsStore = create((set, get) => ({
     selectedAssessment: {},
@@ -49,5 +49,21 @@ export const useAssessmentsStore = create((set, get) => ({
           return result;
         }
         return result;
-      }
+      },
+    createAssessment: async (assessment) => {
+        const result = await createAssessmentAsync(assessment);
+        if(result.status) {
+          await get().loadData("", get().activitiesData.currentPage);
+          return result;
+        }
+        return result;
+      },
+      updateAssessment: async (assessment) => {
+        const result = await updateAssessmentAsync(assessment);
+        if(result.status) {
+            set({selectedAssessment: result.data});
+            return result;
+        }
+        return result;
+    },
 }));

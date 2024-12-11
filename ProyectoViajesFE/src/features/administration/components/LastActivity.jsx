@@ -114,7 +114,7 @@ export const LastActivity = ({
       items: assessments,
       color: "amber",
       link: "/administration/assessments",
-      getLabel: (item) => `Reseña de ${item.userId}`
+      getLabel: (item) => `Reseña de ${item.userName}`
     }
   ];
 

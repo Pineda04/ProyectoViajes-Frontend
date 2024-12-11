@@ -233,9 +233,9 @@ export const ReservationsPage = () => {
                 </th>
                 <td
                   className="px-6 py-4 truncate"
-                  title={reservation.travelPackageId}
+                  title={reservation.travelPackageName}
                 >
-                  {reservation.travelPackageId}
+                  {reservation.travelPackageName}
                 </td>
                 <th
                   scope="row"
